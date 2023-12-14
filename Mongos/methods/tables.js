@@ -12,6 +12,10 @@ const handleCreate= async (leadUser)=>{
 }
 
 const handleJoin = async (tableId, user) => {
+    console.log(user, tableId)
+    if(!user || !tableId){
+        return
+    }
     try {
         const newTable = await TableData.findOne({tableId});
         const newSet = new Set(newTable?.usersList?.filter(item => item).map(item => item.toString()))
