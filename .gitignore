@@ -36,7 +36,6 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
-/API/cards.json
 # BUCK
 buck-out/
 \.buckd/
@@ -58,7 +57,8 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
-
+API/cards.json
+/API/cards.json
 # Expo
 .expo/*
 web-build/
