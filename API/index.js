@@ -3,14 +3,14 @@ const {getTables, handleJoin, handleCreate, getTableData} = require("../Mongos/m
 const cors = require("cors")
 const {register, modifyUser} = require("../Mongos/methods/users");
 const bodyParser = require("body-parser");
-const {TableData} = require("../Mongos/schemas");
 const {socket} = require("../WebSockets/index.js");
-const startApi = (app, socket)=> {
+const {writeNewMessages} = require("./cardsUpdate");
+const startApi = (app)=> {
 
     app.use(bodyParser.json())
     app.use(cors({
         origin:"*",
-        methods:['GET']
+        methods:['GET','POST','PUT']
     }))
     app.listen(5000, () => {
         console.log(`Example app listening on port 5000`)
@@ -19,6 +19,17 @@ const startApi = (app, socket)=> {
     app.get('/tables', async (req, res) => {
         try {
             res.send(JSON.stringify(await getTables()))
+        }catch (e) {
+            console.log(e)
+            res.status(400).send({
+                message: e
+            });
+        }
+    })
+
+    app.get('/update_list', async (req, res) => {
+        try {
+            res.send(await writeNewMessages())
         }catch (e) {
             console.log(e)
             res.status(400).send({
@@ -53,13 +64,6 @@ const startApi = (app, socket)=> {
 
     app.post('/create-table', async (req,res)=> {
         const data = await handleCreate(req.body.user._id)
-        // const tables = await TableData.find().populate('usersList')
-        // for (const client of wss.clients) {
-        //     client.send(JSON.stringify({
-        //         message: 'updated-tables',
-        //         data: tables
-        //     }))
-        // }
         res.send(JSON.stringify(data))
     })
 }

@@ -2,7 +2,7 @@ const WebSocket = require('ws');
 const http = require("http");
 const express = require("express");
 const {startApi} = require("../API");
-const cards = require("../API/cards.json");
+const cards = require("../API/cardsUpdate.js");
 const {TableData} = require("../Mongos/schemas");
 
 const app = express();

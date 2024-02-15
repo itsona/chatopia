@@ -12,8 +12,8 @@ const chatMessageSchema = new mongoose.Schema({
 });
 
 const cardSchema = new mongoose.Schema({
-    isQuestion: Boolean,
-    text: String,
+    starts: [String],
+    endings: [String],
 })
 const userSchema = new mongoose.Schema({
     name: String,
@@ -43,9 +43,13 @@ TableData.createIndexes({tableId: -1});
 const UserSchema = mongoose.model('UserSchema', userSchema);
 UserSchema.createIndexes({timestamp: -1});
 
+const CardsSchema = mongoose.model('CardsList', cardSchema);
+UserSchema.createIndexes({timestamp: -1});
+
 
 module.exports = {
     ChatMessage,
     TableData,
-    UserSchema
+    UserSchema,
+    CardsSchema
 }

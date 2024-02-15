@@ -1,4 +1,5 @@
-const {TableData} = require("../schemas");
+const {TableData, CardsSchema} = require("../schemas");
+const {writeNewMessages} = require("../../API/cardsUpdate");
 const handleCreate= async (leadUser)=>{
     let id = Math.floor(Math.random()*900000) + 10000;
     const newTable = new TableData({
@@ -12,7 +13,6 @@ const handleCreate= async (leadUser)=>{
 }
 
 const handleJoin = async (tableId, user) => {
-    console.log(user, tableId)
     if(!user || !tableId){
         return
     }
